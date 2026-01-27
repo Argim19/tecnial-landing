@@ -1,0 +1,121 @@
+---
+const slides = [
+  {
+    image: "/slider/slide1.jpg",
+    title: "Soluciones arquitectónicas",
+    text: "Puertas, ventanas y estructuras en acero, aluminio, vidrio y madera.",
+    cta: { label: "Ver portafolio", href: "/portafolio/TECNIAL-Catalogo.pdf" },
+  },
+  {
+    image: "/slider/slide2.jpg",
+    title: "Diseño y fabricación a medida",
+    text: "Soluciones personalizadas para proyectos residenciales y comerciales.",
+    cta: { label: "Ver portafolio", href: "/portafolio/TECNIAL-Catalogo.pdf" },
+  },
+  {
+    image: "/slider/slide3.jpg",
+    title: "Instalación profesional",
+    text: "Calidad, seguridad y acabados limpios en cada proyecto.",
+    cta: { label: "Ver portafolio", href: "/portafolio/TECNIAL-Catalogo.pdf" },
+  },
+];
+---
+
+<section class="w-full">
+  <!-- Container tipo Bootstrap -->
+  <div class="mx-auto max-w-6xl">
+    <div class="swiper tecnial-swiper h-[70vh] w-full overflow-hidden">
+      <div class="swiper-wrapper">
+        {slides.map((s) => (
+          <div class="swiper-slide">
+            <div
+              class="relative flex h-full items-end bg-cover bg-center"
+              style={`background-image: url('${s.image}')`}
+            >
+              <!-- Overlay general suave -->
+              <div class="absolute inset-0 bg-black/30"></div>
+
+              <!-- Contenido -->
+              <div class="relative z-10 w-full pb-6 md:pb-6">
+                <!-- Card negra semitransparente -->
+                <div
+                  class=" bg-black/60 p-8 text-white backdrop-blur-sm"
+                >
+                  <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-8">
+                    <div class="min-w-0">
+                      <h2 class="text-3xl font-bold md:text-4xl">
+                        {s.title}
+                      </h2>
+
+                      <p class="mt-4 text-base text-white/90 md:text-lg">
+                        {s.text}
+                      </p>
+                    </div>    
+
+                    {s.cta && (
+                      <div class="md:flex md:items-start md:justify-end">
+                        <a
+                          href={s.cta.href}
+                          target="_blank"
+                          class="mt-6 hidden rounded-lg bg-primary px-6 py-3 hover:bg-primary-hover font-medium text-white md:inline-block"
+                        >
+                          {s.cta.label}
+                        </a>
+                      </div>    
+                    )}
+                  </div>  
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+  import Swiper from "swiper";
+  import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+
+  const swiper = new Swiper(".tecnial-swiper", {
+    modules: [Autoplay, EffectFade, Pagination],
+    effect: "fade",
+    speed: 800,
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+</script>
+
+<style>
+  /* Paginación vertical a la derecha (mobile + desktop) */
+  .tecnial-swiper {
+  --swiper-theme-color: #04bcd4; /* naranja Tailwind */
+  }
+  .tecnial-swiper .swiper-pagination {
+    position: absolute;
+    right: 12px;
+    left: auto;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: auto;
+  }
+
+</style>
+

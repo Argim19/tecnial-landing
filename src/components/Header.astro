@@ -1,0 +1,127 @@
+---
+const nav = [
+  { label: "Inicio", href: "#inicio" },
+  { label: "Líneas", href: "#lineas" },
+  { label: "Proceso", href: "#proceso" },
+  { label: "Galería", href: "#galeria" },
+  { label: "Contacto", href: "#contacto" },
+];
+
+const portfolioHref = "/portafolio/TECNIAL-Catalogo.pdf"; // luego lo cambias por link externo si quieres
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+    <a href="#inicio" class="text-lg font-semibold tracking-tight">
+      TECNIAL
+    </a>
+
+    <!-- Botón hamburguesa (móvil) -->
+    <button
+      id="menuBtn"
+      type="button"
+      class="inline-flex items-center justify-center rounded-xl p-2 hover:bg-slate-100 md:hidden"
+      aria-label="Abrir menú"
+      aria-controls="mobileMenu"
+      aria-expanded="false"
+    >
+      <!-- icono simple -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Menú escritorio (lo dejamos ya listo, pero oculto en móvil) -->
+    <nav class="hidden items-center gap-6 pr-4 md:flex">
+      {nav.map((item) => (
+        <a href={item.href} class="text-sm text-slate-700 hover:text-slate-900">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 z-50 hidden bg-black/40 md:hidden"></div>
+
+  <!-- Menú lateral móvil -->
+  <aside
+    id="mobileMenu"
+    class="fixed right-0 top-0 z-50 h-dvh w-[80vw] max-w-sm translate-x-full border-l border-slate-200 bg-white p-3 transition-transform duration-500 ease-in-out md:hidden"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between">
+      <span class="text-base font-semibold">Menú</span>
+
+      <button
+        id="closeBtn"
+        type="button"
+        class="rounded-xl p-2 hover:bg-slate-100"
+        aria-label="Cerrar menú"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mt-6 grid gap-2">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class="rounded-xl px-3 py-3 text-slate-800 hover:bg-slate-50"
+          data-menu-link
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="mt-6 border-t border-slate-200 pt-6">
+      <a
+        href={portfolioHref}
+        target="_blank"
+        class="block rounded-xl bg-slate-900 px-4 py-3 text-center font-medium text-white hover:bg-slate-800"
+      >
+        Ver portafolio
+      </a>
+    </div>
+  </aside>
+</header>
+
+<script>
+  const btn = document.getElementById("menuBtn") as HTMLButtonElement | null;
+  const closeBtn = document.getElementById("closeBtn") as HTMLButtonElement | null;
+  const menu = document.getElementById("mobileMenu") as HTMLElement | null;
+  const overlay = document.getElementById("overlay") as HTMLDivElement | null;
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-menu-link]");
+
+  if (!btn || !closeBtn || !menu || !overlay) {
+    console.warn("Header menu elements not found");
+  } else {
+    const openMenu = () => {
+      menu.classList.remove("translate-x-full");
+      overlay.classList.remove("hidden");
+      btn.setAttribute("aria-expanded", "true");
+      menu.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeMenu = () => {
+      menu.classList.add("translate-x-full");
+      overlay.classList.add("hidden");
+      btn.setAttribute("aria-expanded", "false");
+      menu.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+
+    btn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+    links.forEach((a) => a.addEventListener("click", closeMenu));
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+  }
+</script>

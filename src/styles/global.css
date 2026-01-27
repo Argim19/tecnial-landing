@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/effect-fade";
+
+@theme {
+  --color-primary: #04bcd4;
+  --color-primary-hover: #03a9be;
+  --color-primary-dark: #028a9e;
+  --color-primary-soft: #d9f4f8;
+
+  --color-secondary: #3c3c34;
+  --color-secondary-dark: #2a2a24;
+  --color-secondary-soft: #5a5a52;
+  --color-secondary-light: #e6e6e1;
+}
+
+/* =========================
+   Arcos / paneles curvos
+   ========================= */
+
+/* Arco inferior (panel superior blanco) */
+.arc-bottom {
+  border-bottom-left-radius: 3333px 500px;
+  border-bottom-right-radius: 3333px 500px;
+}
+
+/* Arco superior (panel inferior claro) */
+.arc-top {
+  border-top-left-radius: 3333px 500px;
+  border-top-right-radius: 3333px 500px;
+}
