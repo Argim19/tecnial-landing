@@ -2,6 +2,8 @@
 @import "swiper/css";
 @import "swiper/css/pagination";
 @import "swiper/css/effect-fade";
+@import "aos/dist/aos.css";
+
 
 @theme {
   --color-primary: #04bcd4;

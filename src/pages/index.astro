@@ -11,3 +11,12 @@ import AfterSliderSection from "../components/AfterSliderSection.astro";
   <AfterSliderSection />
 
 </BaseLayout>
+
+<script>
+  import AOS from "aos";
+  AOS.init({
+    once: true,
+    duration: 700,
+    easing: "ease-out-cubic",
+  });
+</script>
